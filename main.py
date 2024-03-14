@@ -17,9 +17,8 @@ def generate_image(input_image, prompt, style_name, negative_prompt, num_steps, 
         }
     )
     print(output)
-    output_image = output[0]
 
-    return output_image
+    return output
 
 
 def main():
@@ -39,6 +38,8 @@ def main():
 
     # Text input for prompt and negative prompt
     prompt = st.sidebar.text_input("Enter your prompt")
+    if "img" not in prompt:
+        prompt += " img"
     negative_prompt = st.sidebar.text_input("Enter your negative prompt")
 
     # Style selection
@@ -46,17 +47,20 @@ def main():
     style_name = st.sidebar.selectbox("Select Style", style_list)
 
     # Sliders for various configurations
-    number_of_steps = st.sidebar.slider("Number of Steps", 1, 100, 50)
-    style_strength_ratio = st.sidebar.slider("Style Strength Ratio", 15, 50, 20)
+    # number_of_steps = st.sidebar.slider("Number of Steps", 1, 100, 50)
+    number_of_steps = 50
+    # style_strength_ratio = st.sidebar.slider("Style Strength Ratio", 15, 50, 20)
+    style_strength_ratio = 20
     num_outputs = st.sidebar.slider("Number of Outputs", 1, 4, 1)
 
     if st.sidebar.button('Generate Image'):
         if input_image is not None:
             # Generate the output image
-            output_image = generate_image(input_image, prompt, style_name, negative_prompt, number_of_steps, style_strength_ratio, num_outputs)
+            output = generate_image(input_image, prompt, style_name, negative_prompt, number_of_steps, style_strength_ratio, num_outputs)
 
-            # Display the output image
-            st.image(output_image, caption="Generated Image", use_column_width=True)
+            for image in output:
+                # Display the output image
+                st.image(image, caption="Generated Image", use_column_width=True)
         else:
             st.warning("Please upload an image.")
 
