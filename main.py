@@ -23,7 +23,7 @@ def generate_image(input_image, prompt, style_name, negative_prompt, num_steps, 
 
 def main():
     # Title of the web app
-    st.title('Image Generation UI')
+    st.title('Blendify AI')
 
     # Sidebar for inputs
     st.sidebar.header('Input Options')
