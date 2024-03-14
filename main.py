@@ -43,7 +43,7 @@ def main():
     negative_prompt = st.sidebar.text_input("Enter your negative prompt")
 
     # Style selection
-    style_list = ['Photographic (Default)', 'Cinematic', 'Desney Charactor', 'Digital Art', 'Fantasy Art', 'Neonpunk', 'Enhance', 'Comic book', 'Lowpoly', 'Line art']
+    style_list = ['Photographic (Default)', 'Cinematic', 'Disney Charactor', 'Digital Art', 'Fantasy art', 'Neonpunk', 'Enhance', 'Comic book', 'Lowpoly', 'Line art']
     style_name = st.sidebar.selectbox("Select Style", style_list)
 
     # Sliders for various configurations
