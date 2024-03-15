@@ -53,14 +53,14 @@ def main():
     style_strength_ratio = 20
     num_outputs = st.sidebar.slider("Number of Outputs", 1, 4, 1)
 
-    if st.sidebar.button('Generate Image'):
+    if st.sidebar.button('Generate Images'):
         if input_image is not None:
             # Generate the output image
             output = generate_image(input_image, prompt, style_name, negative_prompt, number_of_steps, style_strength_ratio, num_outputs)
 
-            for image in output:
+            for index, image in enumerate(output):
                 # Display the output image
-                st.image(image, caption="Generated Images", use_column_width=True)
+                st.image(image, caption=f"Generated Image {index}", use_column_width=True)
         else:
             st.warning("Please upload an image.")
 
