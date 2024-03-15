@@ -40,7 +40,7 @@ def main():
     prompt = st.sidebar.text_input("Enter your prompt")
     if "img" not in prompt:
         prompt += " img"
-    negative_prompt = st.sidebar.text_input("Enter your negative prompt")
+    negative_prompt = st.sidebar.text_input("Enter your negative prompt (what you don't want in your images)")
 
     # Style selection
     style_list = ['Photographic (Default)', 'Cinematic', 'Disney Charactor', 'Digital Art', 'Fantasy art', 'Neonpunk', 'Enhance', 'Comic book', 'Lowpoly', 'Line art']
@@ -60,7 +60,7 @@ def main():
 
             for image in output:
                 # Display the output image
-                st.image(image, caption="Generated Image", use_column_width=True)
+                st.image(image, caption="Generated Images", use_column_width=True)
         else:
             st.warning("Please upload an image.")
 
