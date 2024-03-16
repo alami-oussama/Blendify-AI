@@ -50,7 +50,7 @@ def main():
     # number_of_steps = st.sidebar.slider("Number of Steps", 1, 100, 50)
     number_of_steps = 50
     # style_strength_ratio = st.sidebar.slider("Style Strength Ratio", 15, 50, 20)
-    style_strength_ratio = 20
+    style_strength_ratio = 30
     num_outputs = st.sidebar.slider("Number of Outputs", 1, 4, 1)
 
     if st.sidebar.button('Generate Images'):
@@ -60,7 +60,7 @@ def main():
 
             for index, image in enumerate(output):
                 # Display the output image
-                st.image(image, caption=f"Generated Image {index}", use_column_width=True)
+                st.image(image, caption=f"Generated Image {index+1}", use_column_width=True)
         else:
             st.warning("Please upload an image.")
 
