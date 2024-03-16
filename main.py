@@ -1,5 +1,9 @@
 import streamlit as st
 import replicate
+from openai import OpenAI
+
+
+client = OpenAI()
 
 
 def generate_image(input_image, prompt, style_name, negative_prompt, num_steps, style_strength_ratio, num_outputs):
@@ -16,6 +20,20 @@ def generate_image(input_image, prompt, style_name, negative_prompt, num_steps, 
             "style_strength_ratio": style_strength_ratio
         }
     )
+    print(output)
+
+    return output
+
+def translate_to_english(input_text):
+    system_prompt = "You are a translator model, you will be given a prompt in any language, you task is to translate it into English. The output should be the English sentence without any added text. If it's already in English, rewrite the same prompt."
+    response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": input_text},
+            ]
+        )
+    output = response.choices[0].message.content.replace(".", "")
     print(output)
 
     return output
@@ -38,8 +56,6 @@ def main():
 
     # Text input for prompt and negative prompt
     prompt = st.sidebar.text_input("Enter your prompt")
-    if "img" not in prompt:
-        prompt += " img"
     negative_prompt = st.sidebar.text_input("Enter your negative prompt (what you don't want in your images)")
 
     # Style selection
@@ -55,6 +71,13 @@ def main():
 
     if st.sidebar.button('Generate Images'):
         if input_image is not None:
+            # Translate non-English prompts to English
+            prompt = translate_to_english(prompt)
+
+            # Add trigger to the prompt
+            if "img" not in prompt:
+                prompt += " img"
+
             # Generate the output image
             output = generate_image(input_image, prompt, style_name, negative_prompt, number_of_steps, style_strength_ratio, num_outputs)
 
